@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-10-2023 a las 02:15:44
+-- Tiempo de generación: 16-10-2023 a las 08:43:16
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -64,11 +64,12 @@ CREATE TABLE `cancha` (
 
 CREATE TABLE `complejo` (
   `id` int(11) NOT NULL,
-  `codigoPostal` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `provincia` varchar(255) DEFAULT NULL,
   `dirreccion_id` int(11) DEFAULT NULL,
-  `propietario_id` int(11) DEFAULT NULL
+  `propietario_id` int(11) DEFAULT NULL,
+  `horaInicio` time DEFAULT NULL,
+  `horaFin` time DEFAULT NULL,
+  `cantidadCanchas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -81,8 +82,6 @@ CREATE TABLE `dirreccion` (
   `id` int(11) NOT NULL,
   `calle` varchar(255) NOT NULL,
   `numero` varchar(255) NOT NULL,
-  `horaIni` varchar(255) NOT NULL,
-  `horaFin` varchar(255) NOT NULL,
   `localidad_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
