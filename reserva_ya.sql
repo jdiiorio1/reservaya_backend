@@ -284,3 +284,24 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+----------------
+---- ACTUALIZACION DE TABLA COMPLEJOS CON CAMPOS LATITUD Y LONGITUD (SE PUEDE CAMBIAR DESPUES SI LOS TIPOS DE DATOS NO SON CORRECTOS)
+----------------
+
+ALTER TABLE reserva_ya.complejo
+ADD latitud  decimal(8,5) DEFAULT NULL,
+Add longitud decimal(8,5) DEFAULT NULL;
+
+insert into reserva_ya.complejo (id, nombre, latitud, longitud) VALUES (1,"Complejo Deportivo La Plata", -34.90816, -57.91680);
+
+insert into reserva_ya.complejo (id, nombre, latitud, longitud) VALUES (2,"Cancha de 5", -34.92565, -57.97683);
+
+insert into reserva_ya.complejo (id, nombre, latitud, longitud) VALUES (3,"PapiFutbol don Pepe", -34.92210, -57.97086);
+
+insert into reserva_ya.complejo (id, nombre, latitud, longitud) VALUES (4,"la cancha de la gente", -34.92125, -57.93928);
+
+insert into reserva_ya.complejo (id, nombre, latitud, longitud) VALUES (5,"Club Social y deportivo", -34.90960, -57.91693);
+----------------------
+
