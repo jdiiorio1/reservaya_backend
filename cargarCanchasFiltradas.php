@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
                                 where
                                     can.complejo_id = com.id and
                                     can.complejo_id = '$id_complejo' and
-                                    can.id not in (select id_cancha from agenda
+                                    can.id not in (select id_cancha from reserva
                                 where 
                                 fecha = '$fecha' and
                                 hora = '$hora')") as $row) {
