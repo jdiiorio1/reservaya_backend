@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     //$query = "SELECT nombre, latitud, longitud FROM complejo";
 
         $array = array();
-        foreach($mysql->query("select can.id, can.capacidad, can.techado from cancha as can, complejo as com
+        foreach($mysql->query("select can.id, can.capacidad, can.techado, can.costo from cancha as can, complejo as com
                                 where
                                     can.complejo_id = com.id and
                                     can.complejo_id = '$id_complejo' and
