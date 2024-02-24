@@ -6,15 +6,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     //$query = "SELECT nombre, latitud, longitud FROM complejo";
 
         $array = array();
-        foreach($mysql->query("select com.id, com.nombre, com.latitud, com.longitud, count(*) as cant_canchas 
-            from complejo as com, cancha as can
+        foreach($mysql->query("SELECT com.id, com.nombre, com.latitud, com.longitud, dir.calle, dir.numero, count(*) as cant_canchas 
+            FROM complejo as com, cancha as can, direccion as dir
             where
-                can.complejo_id = com.id and
-                can.id not in (select id_cancha from agenda
-                                where 
-                                fecha = '$fecha' and
+                can.complejo_id = com.id AND
+                com.direccion_id = dir.id AND
+                can.id NOT IN(SELECT id_cancha FROM reserva
+                                WHERE 
+                                fecha = '$fecha' AND
                                 hora = '$hora')
-            group by com.id") as $row) {
+            GROUP BY com.id") as $row) {
             $array[] =$row;
            // echo "<li>" . $row['nombre'] . $row['latitud'] .$row['longitud'] ."</li>";
         }
