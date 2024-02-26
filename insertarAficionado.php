@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo_electronico = $_POST['correo_electronico'];
     $contrasena = $_POST['contrasena'];
     $propietario = $_POST['propietario'];
-    $equipo = $_POST['equipo'];
+    $cuil= $_POST['cuil'];
 
-    $query = "INSERT INTO usuarios (nombre, correo_electronico, contrasena, propietario) VALUES ('$nombre', '$correo_electronico', '$contrasena', '$propietario')";
+    $query = "INSERT INTO usuario (nombre, correo_electronico, contrasena, propietario, cuil) VALUES ('$nombre', '$correo_electronico', '$contrasena', '$propietario', '$cuil')";
     $result = $mysql->query($query);
 
     if ($result === true) {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario_aficionado_id = $mysql->insert_id;
 
         // Insertar en la tabla "aficionado" utilizando el ID del usuario
-        $query2 = "INSERT INTO aficionado (equipo, usuario_id) VALUES ('$equipo', '$usuario_aficionado_id')";
+        $query2 = "INSERT INTO aficionado (usuario_id) VALUES ('$usuario_aficionado_id')";
         $result2 = $mysql->query($query2);
 
         if ($result2 === true) {
