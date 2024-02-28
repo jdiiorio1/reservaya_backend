@@ -2,13 +2,12 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once("ConectarBD.php");
 
-       
     $nombre = $_POST['nombre'];
     $horario_inicio = $_POST['horario_inicio'];
     $horario_fin = $_POST['horario_fin'];
     $propietario_id = $_POST['propietario_id']; 
-    $latitud= $_POST['latitud'];
-    $longitud= $_POST['longitud'];
+    $latitud = $_POST['latitud'];
+    $longitud = $_POST['longitud'];
     $calle = $_POST['calle']; 
     $numero = $_POST['numero']; 
     $nombreLocalidad = $_POST['nombreLocalidad'];
@@ -33,16 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Verificar si la dirección ya existe
     $sql_select_direccion = "SELECT id FROM direccion WHERE calle = '$calle' AND numero = '$numero' AND localidad_id = '$localidad_id'";
     $result = $mysql->query($sql_select_direccion);
     if ($result->num_rows > 0) {
-        // La dirección ya existe, eliminar el registro insertado y mostrar un mensaje de error
-        $sql_delete_direccion = "DELETE FROM direccion WHERE calle = '$calle' AND numero = '$numero' AND localidad_id = '$localidad_id'";
-        if ($mysql->query($sql_delete_direccion) === TRUE) {
-            echo "La dirección ya está registrada en la base de datos.";
-        } else {
-            echo "Error al eliminar la dirección duplicada: " . $mysql->error;
-        }
+        // La dirección ya existe, mostrar un mensaje de error
+        echo "La dirección ya está registrada en la base de datos.";
         exit();
     } else {
         // La dirección no existe, la insertamos en la tabla de direcciones
@@ -50,22 +45,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($mysql->query($sql_insertar_direccion) === TRUE) {
             // Obtenemos el ID de la dirección insertada
             $direccion_id = $mysql->insert_id;
-
         } else {
             echo "Error al insertar la dirección: " . $mysql->error;
+            exit();
         }
     }
 
-    $query = "INSERT INTO complejo (nombre, dirrecion_id, propietario_id, latitud, longitud, horario_inicio, horario_fin) VALUES ('$nombre', '$dirrecion_id', '$propietario_id', '$latitud', '$longitud', '$horario_inicio', '$horario_fin')";
-    $result = $mysql->query($query);
-
-    if ($result === true) {
-        echo "Se inserto correctamente la tabla ";
+    // Insertar el complejo
+    $query = "INSERT INTO complejo (nombre, direccion_id, propietario_id, latitud, longitud, horario_inicio, horario_fin) VALUES ('$nombre', '$direccion_id', '$propietario_id', '$latitud', '$longitud', '$horario_inicio', '$horario_fin')";
+    if ($mysql->query($query) === TRUE) {
+        echo "Se insertó correctamente en la tabla complejo.";
     } else {
-        echo "Error al insertar en la tabla 'usuarios'";
+        echo "Error al insertar en la tabla 'complejo': " . $mysql->error;
     }
+
+    // Cerrar la conexión
+    $mysql->close();
 }
-// Cerrar la conexión
-$mysql->close();
 ?>
-feature/crearComplejo
